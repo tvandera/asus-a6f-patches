@@ -1,0 +1,29 @@
+--- intel_bios.c.orig	2010-09-24 21:24:45.000000000 +0200
++++ intel_bios.c	2010-09-24 21:24:48.000000000 +0200
+@@ -141,6 +141,9 @@
+ 	if (lvds_options->panel_type == 0xff)
+ 		return;
+ 	panel_type = lvds_options->panel_type;
++	DRM_DEBUG_KMS("Found panel type in BIOS VBT tables: %d\n", panel_type);
++  panel_type = 13;
++  DRM_DEBUG_KMS("Override panel type in BIOS VBT tables to: %d\n", panel_type);
+
+ 	lvds_lfp_data = find_section(bdb, BDB_LVDS_LFP_DATA);
+ 	if (!lvds_lfp_data)
+@@ -156,7 +159,7 @@
+ 		lvds_lfp_data_ptrs->ptr[0].dvo_timing_offset;
+ 	entry = (struct bdb_lvds_lfp_data_entry *)
+ 		((uint8_t *)lvds_lfp_data->data + (lfp_data_size *
+-						   lvds_options->panel_type));
++						   panel_type));
+ 	dvo_timing_offset = lvds_lfp_data_ptrs->ptr[0].dvo_timing_offset -
+ 		lvds_lfp_data_ptrs->ptr[0].fp_timing_offset;
+
+@@ -246,7 +249,7 @@
+ 		return;
+
+ 	fill_detail_timing_data(panel_fixed_mode,
+-			dvo_timing + sdvo_lvds_options->panel_type);
++			dvo_timing + panel_type);
+
+ 	dev_priv->sdvo_lvds_vbt_mode = panel_fixed_mode;
