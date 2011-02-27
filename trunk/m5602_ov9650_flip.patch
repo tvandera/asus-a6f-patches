@@ -1,0 +1,16 @@
+--- drivers/media/video/gspca/m5602/m5602_ov9650.c.orig	2011-02-27 13:33:08.173686001 +0100
++++ drivers/media/video/gspca/m5602/m5602_ov9650.c	2011-02-27 13:33:27.569686000 +0100
+@@ -45,6 +45,13 @@
+     const
+ 	struct dmi_system_id ov9650_flip_dmi_table[] = {
+ 	{
++		.ident = "ASUS A6F",
++		.matches = {
++			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK Computer Inc."),
++			DMI_MATCH(DMI_PRODUCT_NAME, "A6F")
++		}
++	},
++	{
+ 		.ident = "ASUS A6Ja",
+ 		.matches = {
+ 			DMI_MATCH(DMI_SYS_VENDOR, "ASUSTeK Computer Inc."),
